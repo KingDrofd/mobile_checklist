@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_checklist/config/color_switch.dart';
+import 'package:mobile_checklist/utils/variables.dart';
 import 'package:mobile_checklist/widgets/card_data.dart';
 import 'package:mobile_checklist/widgets/card_details.dart';
 import 'package:mobile_checklist/widgets/checklists.dart';
@@ -43,7 +44,6 @@ final colorSwitch = ColorSwitch();
 
 final title = TextEditingController();
 final text = TextEditingController();
-final progress = TextEditingController();
 
 class ColorBox extends StatefulWidget {
   final Color color;
@@ -189,7 +189,7 @@ class _ColorBoxState extends State<ColorBox> {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                            barProgress.toString(),
+                            (cardData.progress * 100).toInt().toString(),
                             style: TextStyle(
                                 fontSize: 17, fontWeight: FontWeight.bold),
                           ),
@@ -205,7 +205,7 @@ class _ColorBoxState extends State<ColorBox> {
                           color: colorSwitch.currentColor1,
                           borderRadius: BorderRadius.circular(20),
                           minHeight: 20,
-                          value: barProgress,
+                          value: cardData.progress,
                         ),
                       )
                     ],
@@ -318,98 +318,6 @@ Widget addNewCard(BuildContext context) {
   );
 }
 
-// Future<dynamic> cardDetailsAdd(BuildContext context) {
-//   return showDialog(
-//       context: context,
-//       builder: (context) {
-//         return AlertDialog(
-//           shape: RoundedRectangleBorder(
-//             borderRadius: BorderRadius.all(
-//               Radius.circular(
-//                 20.0,
-//               ),
-//             ),
-//           ),
-//           contentPadding: EdgeInsets.only(
-//             top: 10.0,
-//           ),
-//           title: const Text(
-//             "Create New Card",
-//             style: TextStyle(fontSize: 24.0),
-//           ),
-//           content: Container(
-//             height: 350,
-//             width: 360,
-//             child: SingleChildScrollView(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.start,
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: <Widget>[
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: Text(
-//                       "Title",
-//                     ),
-//                   ),
-//                   Container(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: TextField(
-//                       controller: title,
-//                       decoration: InputDecoration(
-//                         border: OutlineInputBorder(),
-//                         hintText: 'Enter Title here',
-//                       ),
-//                     ),
-//                   ),
-//                   Padding(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: Text(
-//                       "Info",
-//                     ),
-//                   ),
-//                   Container(
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: TextField(
-//                       controller: text,
-//                       decoration: InputDecoration(
-//                         border: OutlineInputBorder(),
-//                         hintText: 'Enter Title here',
-//                       ),
-//                     ),
-//                   ),
-//                   Container(
-//                     width: double.infinity,
-//                     height: 60,
-//                     padding: const EdgeInsets.all(8.0),
-//                     child: ElevatedButton(
-//                       onPressed: () {
-//                         Navigator.of(context).pop();
-//                         createUser(
-//                             title: title.text,
-//                             text: text.text,
-//                             progress: barProgress,
-//                             color: "color");
-//                         buildStream();
-//                       },
-//                       style: ElevatedButton.styleFrom(
-//                         backgroundColor: Colors.black,
-//                         // fixedSize: Size(250, 50),
-//                       ),
-//                       child: Text(
-//                         "Submit",
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         );
-//       });
-// }
-
 Future createUser(
     {required String title,
     required String text,
@@ -417,6 +325,7 @@ Future createUser(
     required String color}) async {
   final docUser = FirebaseFirestore.instance.collection(idToken).doc();
   final todo = CardData(
+      checkListIndex: checkListIndex,
       info: text,
       title: title,
       progress: progress,
@@ -430,7 +339,6 @@ Stream<List<CardData>> readUser() {
   return FirebaseFirestore.instance
       .collection(idToken)
       .orderBy('title', descending: false)
-      .limit(3)
       .snapshots()
       .map((event) =>
           event.docs.map((e) => CardData.fromJson(e.data())).toList());

@@ -9,8 +9,15 @@ class RGBColor {
   RGBColor({required this.red, required this.green, required this.blue});
 }
 
-List<bool> isCheckedList = List.generate(3, (index) => false);
-List<String> customNames = List.generate(3, (index) => 'Item $index');
+int checkListIndex = 0;
+List<bool> isCheckedList = List.generate(
+  checkListIndex,
+  (index) => false,
+);
+List<String> customNames = List.generate(
+  checkListIndex,
+  (index) => 'Item $index',
+);
 TextEditingController customNameController = TextEditingController();
 
 // RGBColor rgbColor = RGBColor(red: 235, green: 143, blue: 143);

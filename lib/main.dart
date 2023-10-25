@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_checklist/config/color_switch.dart';
 import 'package:mobile_checklist/firebase_options.dart';
+import 'package:mobile_checklist/widgets/card_data.dart';
 import 'package:mobile_checklist/widgets/card_details.dart';
 import 'package:mobile_checklist/widgets/checklists.dart';
 import 'package:mobile_checklist/widgets/color_sliders.dart';
@@ -58,13 +59,20 @@ class _MainCheckListState extends State<MainCheckList> {
                   });
                 },
                 child: Text("Sign Out")),
-            SizedBox(
-              width: double.maxFinite,
-              height: 400,
-              child: ColorBox(
-                  color: isColor1Selected
-                      ? colorSwitch.currentColor1
-                      : colorSwitch.currentColor2),
+            GestureDetector(
+              onTapUp: (details) => setState(() {
+                print(cardtitle.text);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => CardDetailsAdd()));
+              }),
+              child: SizedBox(
+                width: double.maxFinite,
+                height: 400,
+                child: ColorBox(
+                    color: isColor1Selected
+                        ? colorSwitch.currentColor1
+                        : colorSwitch.currentColor2),
+              ),
             ),
           ],
         ),

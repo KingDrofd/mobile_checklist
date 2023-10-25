@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobile_checklist/widgets/card_data.dart';
 import 'package:mobile_checklist/widgets/checklists.dart';
 import 'package:mobile_checklist/widgets/custom_card.dart';
 
@@ -72,6 +73,15 @@ class _CardDetailsAddState extends State<CardDetailsAdd> {
                   progress: barProgress,
                   color: "color");
               buildStream();
+              if (title.text == "") {
+                title.clear();
+                text.clear();
+                isCheckedList.clear();
+              } else {
+                title.text = cardtitle.text;
+                text.text = cardtitle.text;
+                checkListIndex = cardIndexCheckList;
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
@@ -90,38 +100,80 @@ class _CardDetailsAddState extends State<CardDetailsAdd> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
-                width: 360,
+                width: double.maxFinite,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: <Widget>[
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: Text(
-                    //     "Title",
-                    //   ),
-                    // ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Icon(
-                            Icons.arrow_back_sharp,
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(left: 10),
-                          width: 300,
-                          child: TextField(
-                            controller: title,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: 'Title',
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.arrow_back_sharp,
                             ),
                           ),
                         ),
+                        Expanded(
+                          flex: 8,
+                          child: Container(
+                            padding: EdgeInsets.only(left: 10),
+                            width: double.maxFinite,
+                            child: TextField(
+                              controller: title,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: 'Title',
+                              ),
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: PopupMenuButton<String>(
+                                onSelected: (String result) {
+                                  switch (result) {
+                                    case 'New Check Box':
+                                      _showAddItemDialog();
+                                      break;
+                                    case 'filter2':
+                                      print('filter 2 clicked');
+                                      break;
+                                    case 'clearFilters':
+                                      print('Clear filters');
+                                      break;
+                                    default:
+                                  }
+                                },
+                                itemBuilder: (BuildContext context) =>
+                                    <PopupMenuEntry<String>>[
+                                  const PopupMenuItem<String>(
+                                    value: 'New Check Box',
+                                    child: Text('CheckBox'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'filter2',
+                                    child: Text('Filter 2'),
+                                  ),
+                                  const PopupMenuItem<String>(
+                                    value: 'clearFilters',
+                                    child: Text('Clear filters'),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                     Divider(

@@ -4,6 +4,7 @@ class CardData {
   final String id;
   final String info;
   final String title;
+  final int checkListIndex;
   final double progress;
   final String cardColor;
 
@@ -12,6 +13,7 @@ class CardData {
     required this.info,
     required this.title,
     required this.progress,
+    required this.checkListIndex,
     this.id = '',
   });
 
@@ -20,6 +22,7 @@ class CardData {
         'title': title,
         'info': info,
         'progress': progress,
+        'checklistlength': checkListIndex,
         'card color': cardColor,
       };
 
@@ -28,9 +31,11 @@ class CardData {
         info: json['info'],
         title: json['title'],
         progress: json['progress'],
+        checkListIndex: json['checklistlength'],
       );
 }
 
 final cardtitle = TextEditingController();
 final cardtext = TextEditingController();
 final cardProgress = TextEditingController();
+final cardIndexCheckList = 0;
