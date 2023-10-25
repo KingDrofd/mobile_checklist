@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "659717741243",
+    "project_id": "don-t-you-dare-forget-aefde",
+    "storage_bucket": "don-t-you-dare-forget-aefde.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659717741243:android:697fbabe46fceacd0d679e",
+        "android_client_info": {
+          "package_name": "com.example.mobile_checklist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659717741243-gcmvkkkujdjc8661jekpks1nlh6nu0et.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobile_checklist",
+            "certificate_hash": "c3d2ed266036ffd473168091b0da098f82cc8097"
+          }
+        },
+        {
+          "client_id": "659717741243-o5m9nd5i94qvhba573u8bn23ffd7mbad.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mobile_checklist",
+            "certificate_hash": "13451f58fa7301d992d030fa4d5f2320e7e514fb"
+          }
+        },
+        {
+          "client_id": "659717741243-oc0gius2dhekkmk0kp3go6pgopfdpcjc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFOsRTHxgHY5BkWdF9aiGiqw83d0gGMgs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659717741243-oc0gius2dhekkmk0kp3go6pgopfdpcjc.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "659717741243-75iqogsog8k132clvpkd49h3osmscu2a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mobileChecklist"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
